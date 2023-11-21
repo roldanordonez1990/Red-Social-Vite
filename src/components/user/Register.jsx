@@ -14,13 +14,13 @@ export const Register = () => {
   const addUser = async(e) =>{
       e.preventDefault();
       try {
-        let {datos} = await PeticionesAyax(Constantes.url_api+"user/addUser", "POST", user)
-        if(datos.message == "Usuario guardado correctamente.") setFlag(true) 
-        if(datos.message == "Ya existe un usuario con estos datos.") {
+        let {data} = await PeticionesAyax(Constantes.url_api+"user/addUser", "POST", user)
+        if(data.message == "Usuario guardado correctamente.") setFlag(true) 
+        if(data.message == "Ya existe un usuario con estos datos.") {
           setFlag2(true) 
           setFlag(false)
         }
-        console.log(datos.message);
+        console.log(data.message);
       } catch (error) {
         setFlag3(true)
       }

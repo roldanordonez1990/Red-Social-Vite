@@ -57,10 +57,10 @@ export const PeticionesAyax = async (url, metodo, datos_guardar = {}, imagen = f
     }
   
     const peticion = await fetch(url, opcion_metodo, datos_guardar, imagen);
-    const datos = await peticion.json();
+    const data = await peticion.json();
   
     return {
-      datos
+      data
     }
   }
   
