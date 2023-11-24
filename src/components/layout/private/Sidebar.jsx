@@ -1,12 +1,18 @@
 import avatar from "../../../../src/assets/img/user.png";
+import AuthContext from "../../../context/AuthProvider";
+import { useContext } from "react";
+import { Constantes } from "../../../helpers/Constantes";
 
 export const Sidebar = () => {
+    //useContext donde viene toda la info del usuario
+    const{auth, counter} = useContext(AuthContext);
+
     return (
         <>
             <aside className="layout__aside">
 
                 <header className="aside__header">
-                    <h1 className="aside__title">Hola, Victor</h1>
+                    <h1 className="aside__title">Hola, {auth.nombre}</h1>
                 </header>
 
                 <div className="aside__container">
@@ -15,12 +21,16 @@ export const Sidebar = () => {
 
                         <div className="profile-info__general-info">
                             <div className="general-info__container-avatar">
-                                <img src={avatar} className="container-avatar__img" alt="Foto de perfil"/>
+                                {auth.imagen != "default.png" ? (
+                                    <img src={Constantes.url_api+"user/getAvatar/"+auth.imagen} className="container-avatar__img" alt="Foto de perfil"/>
+                                ):(
+                                    <img src={avatar} className="container-avatar__img" alt="Foto de perfil"/>
+                                )                                  
+                                }                                
                             </div>
-
                             <div className="general-info__container-names">
-                                <a href="#" className="container-names__name">Victor Robles</a>
-                                <p className="container-names__nickname">VictorWeb</p>
+                                <a href="#" className="container-names__name">{auth.nombre}</a>
+                                <p className="container-names__nickname">{auth.nick}</p>
                             </div>
                         </div>
 
@@ -29,13 +39,13 @@ export const Sidebar = () => {
                             <div className="stats__following">
                                 <a href="#" className="following__link">
                                     <span className="following__title">Siguiendo</span>
-                                    <span className="following__number">10</span>
+                                    <span className="following__number">{counter.following}</span>
                                 </a>
                             </div>
                             <div className="stats__following">
                                 <a href="#" className="following__link">
                                     <span className="following__title">Seguidores</span>
-                                    <span className="following__number">13</span>
+                                    <span className="following__number">{counter.followers}</span>
                                 </a>
                             </div>
 
@@ -43,7 +53,7 @@ export const Sidebar = () => {
                             <div className="stats__following">
                                 <a href="#" className="following__link">
                                     <span className="following__title">Publicaciones</span>
-                                    <span className="following__number">17</span>
+                                    <span className="following__number">{counter.publication}</span>
                                 </a>
                             </div>
 

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useForm } from "../../hooks/useForm"
 import {PeticionesAyax} from "../../helpers/PeticionesAyax"
 import {Constantes} from "../../helpers/Constantes"
+import AuthContext from "../../context/AuthProvider";
+import { useContext } from "react";
 
 export const Login = () => {
   const {user, change} = useForm();
@@ -9,7 +11,8 @@ export const Login = () => {
   const [flag3, setFlag3] = useState(false);
   const [flag4, setFlag4] = useState(false);
 
-
+  const {nombre} = useContext(AuthContext);
+  
   const login = async(e) =>{
     e.preventDefault();
     const {data} = await PeticionesAyax(Constantes.url_api+"user/login", "POST", user);
@@ -27,7 +30,7 @@ export const Login = () => {
 
   return (
    <>
-      <h2>Identifícate como usuario</h2>
+      <h2>Identifícate como usuario {nombre}</h2>
       {flag2 && <h3 className="alert alert-danger">No te has identificado correctamente.</h3>}
       {flag3 && <h3 className="alert alert-danger">No se ha encontrado al usuario deseado.</h3>}
       {flag4 && <h3 className="alert alert-success">Te has identificado correctamente.</h3>}

@@ -5,6 +5,7 @@ import { PublicLayout } from "../components/layout/public/PublicLayout";
 import { Register } from "../components/user/Register";
 import { Error } from "../components/user/Error";
 import { Feed } from "../components/publication/Feed";
+import { AuthProvider } from "../context/AuthProvider";
 //import { HeaderPubl } from "../components/layout/public/HeaderPubl";
 //import { HeaderPriv } from "../components/layout/private/HeaderPriv";
 
@@ -12,6 +13,7 @@ import { Feed } from "../components/publication/Feed";
 export const RouterMain = () => {
   return (
     <BrowserRouter>
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<PublicLayout/>}>
             <Route index element={<Login/>}/>
@@ -27,6 +29,7 @@ export const RouterMain = () => {
           </Route>
 
         </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 };
