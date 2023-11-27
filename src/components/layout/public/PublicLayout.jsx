@@ -13,12 +13,11 @@ export const PublicLayout = () => {
       <>
         <HeaderPubl />
         <section className="layout__content">
-          {/*Con Outlet se estará cargando el componente de las Sub-rutas que estén asignadas al componente padre*/}
-          {!auth.id ? (
+          {!auth._id ? 
             <Outlet />
-          ):(
+          :
             <Navigate to="/private"/>
-          )}
+          }
         </section>
       </>
     );

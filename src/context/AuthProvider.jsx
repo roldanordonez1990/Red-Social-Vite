@@ -32,11 +32,11 @@ export const AuthProvider = ({children}) => {
       }
 
       const user_obj = JSON.parse(user);
-      console.log(user_obj.id);
+      console.log(user_obj._id);
       
       try {
         //Petición ajax al servidor para objeter los datos del usuario a través de su id
-        const request = await fetch(Constantes.url_api + "user/getDataUserProfile/"+user_obj.id, {
+        const request = await fetch(Constantes.url_api + "user/getDataUserProfile/"+user_obj._id, {
           method: "GET",
           headers:{
             "Content-Type": "application/json",
@@ -45,8 +45,11 @@ export const AuthProvider = ({children}) => {
         });
 
         const data = await request.json();
-        console.log(data.user_token_identity)
-        setAuth(data.user_token_identity);
+        //user_finded es el objeto de usuario que devuelve la bbdd ya actualizada
+        //si usáramos user_token_identity setearímos siempre el usuario con los datos del token del login, no mostrando la última actualización
+        //de esta manera, conseguimos que siempre aparezcan los nuevos datos en pantalla.
+        console.log(data.user_finded)
+        setAuth(data.user_finded);
         setLoading(false);
         
       } catch (error) {
@@ -55,7 +58,7 @@ export const AuthProvider = ({children}) => {
 
       try {
         //Petición ajax al servidor para objeter los contadores del usuario según su id
-        const requestCounter = await fetch(Constantes.url_api + "user/counter/"+user_obj.id, {
+        const requestCounter = await fetch(Constantes.url_api + "user/counter/"+user_obj._id, {
           method: "GET",
           headers:{
             "Content-Type": "application/json",
