@@ -1,19 +1,18 @@
-import { useState } from "react"
+import { useState } from "react";
 
 export const useForm = () => {
+  const [user, setUser] = useState({});
 
-const [user, setUser] = useState({});
-
-const change = ({target}) =>{
-    let {name, value} = target;
+  const change = ({ target }) => {
+    let { name, value } = target;
     setUser({
-        ...user,
-        [name]: value
-    })
-}
+      ...user,
+      [name]: value,
+    });
+  };
 
   return {
     user,
     change
-  }
-}
+  };
+};

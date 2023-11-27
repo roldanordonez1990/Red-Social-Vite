@@ -1,6 +1,12 @@
+import { useContext } from "react";
+import { NavLink } from "react-router-dom";
 import avatar from "../../../../src/assets/img/user.png";
+import AuthContext from "../../../context/AuthProvider";
+import { Constantes } from "../../../helpers/Constantes";
 
 export const HeaderPriv = () => {
+  const { auth } = useContext(AuthContext);
+
   return (
     <>
       <header className="layout__navbar">
@@ -13,24 +19,24 @@ export const HeaderPriv = () => {
         <nav className="navbar__container-lists">
           <ul className="container-lists__menu-list">
             <li className="menu-list__item">
-              <a href="#" className="menu-list__link">
+              <NavLink to="/private" className="menu-list__link">
                 <i className="fa-solid fa-house"></i>
                 <span className="menu-list__title">Inicio</span>
-              </a>
+              </NavLink>
             </li>
 
             <li className="menu-list__item">
-              <a href="#" className="menu-list__link">
+              <NavLink to="/private/feed" className="menu-list__link">
                 <i className="fa-solid fa-list"></i>
                 <span className="menu-list__title">Timeline</span>
-              </a>
+              </NavLink>
             </li>
 
             <li className="menu-list__item">
-              <a href="#" className="menu-list__link">
+              <NavLink to="/private/people" className="menu-list__link">
                 <i className="fa-solid fa-user"></i>
                 <span className="menu-list__title">Gente</span>
-              </a>
+              </NavLink>
             </li>
 
             <li className="menu-list__item">
@@ -44,29 +50,38 @@ export const HeaderPriv = () => {
           <ul className="container-lists__list-end">
             <li className="list-end__item">
               <a href="#" className="list-end__link-image">
-                <img
-                  src={avatar}
-                  className="list-end__img"
-                  alt="Imagen de perfil"
-                />
+                {auth.imagen != "default.png" ? (
+                  <img
+                    src={Constantes.url_api + "user/getAvatar/" + auth.imagen}
+                    className="list-end__img"
+                    alt="Foto de perfil"
+                  />
+                ) : (
+                  <img
+                    src={avatar}
+                    className="list-end__img"
+                    alt="Foto de perfil"
+                  />
+                )}
               </a>
             </li>
             <li className="list-end__item">
               <a href="#" className="list-end__link">
-                <span className="list-end__name">Nick</span>
+                <span className="list-end__name">{auth.nick}</span>
               </a>
             </li>
+
             <li className="list-end__item">
-              <a href="#" className="list-end__link">
+              <NavLink to="/private/config" className="list-end__link">
                 <i className="fa-solid fa-gear"></i>
                 <span className="list-end__name">Ajustes</span>
-              </a>
+              </NavLink>
             </li>
             <li className="list-end__item">
-              <a href="#" className="list-end__link">
+              <NavLink to="/private/logout" className="list-end__link">
                 <i className="fa-solid fa-arrow-right-from-bracket"></i>
                 <span className="list-end__name">Cerrar Sesión</span>
-              </a>
+              </NavLink>
             </li>
           </ul>
         </nav>

@@ -6,6 +6,9 @@ import { Register } from "../components/user/Register";
 import { Error } from "../components/user/Error";
 import { Feed } from "../components/publication/Feed";
 import { AuthProvider } from "../context/AuthProvider";
+import { Logout } from "../components/user/Logout";
+import { People } from "../components/user/People";
+import { Config } from "../components/user/Config";
 //import { HeaderPubl } from "../components/layout/public/HeaderPubl";
 //import { HeaderPriv } from "../components/layout/private/HeaderPriv";
 
@@ -25,6 +28,9 @@ export const RouterMain = () => {
           <Route path="/private" element={<PrivateLayout/>}>
             <Route index element={<Feed/>}/>
             <Route path="feed" index element={<Feed/>}/>
+            <Route path="people" element={<People/>}/>
+            <Route path="logout" element={<Logout/>}/>
+            <Route path="config" element={<Config/>}/>
             <Route path="*" element={<Error/>}/>
           </Route>
 

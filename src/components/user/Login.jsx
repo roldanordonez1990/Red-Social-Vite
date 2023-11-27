@@ -2,16 +2,12 @@ import { useState } from "react";
 import { useForm } from "../../hooks/useForm"
 import {PeticionesAyax} from "../../helpers/PeticionesAyax"
 import {Constantes} from "../../helpers/Constantes"
-import AuthContext from "../../context/AuthProvider";
-import { useContext } from "react";
 
 export const Login = () => {
   const {user, change} = useForm();
   const [flag2, setFlag2] = useState(false);
   const [flag3, setFlag3] = useState(false);
   const [flag4, setFlag4] = useState(false);
-
-  const {nombre} = useContext(AuthContext);
   
   const login = async(e) =>{
     e.preventDefault();
@@ -23,14 +19,18 @@ export const Login = () => {
       //Persistimos el token jwt y el usuario en el LocalStorage para guardar la sesión...El hacendado del Interceptor xD
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
+      //Redirigimos a la sección privada. Esperamos 2'' y recargamos la página. Irá directamen al recargar debido
+      //al filtro que tenemos al estar identificados, ya que no se podrá acceder de nuevo a la parte pública
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     }
-
     console.log(data)
   }
 
   return (
    <>
-      <h2>Identifícate como usuario {nombre}</h2>
+      <h2>Identifícate como usuario</h2>
       {flag2 && <h3 className="alert alert-danger">No te has identificado correctamente.</h3>}
       {flag3 && <h3 className="alert alert-danger">No se ha encontrado al usuario deseado.</h3>}
       {flag4 && <h3 className="alert alert-success">Te has identificado correctamente.</h3>}
