@@ -28,13 +28,13 @@ export const Config = () => {
           setTimeout(() => {
             setFlag(true);
             setFlag2(false);
+            //seteamos el objeto auth con los nuevos valores cambiados
+            setAuth(data.user_updated);
           }, 2000);
           //No enviamos la pass por cliente
           delete data.user_updated.password;
-          //seteamos el objeto auth con los nuevos valores cambiados
           //utiliza el operador spread (...) para combinar los contenidos de los dos objetos (auth y data.user_updated) en un nuevo objeto. Al hacerlo, los valores del objeto data.user_updated sobrescribirán los valores correspondientes del objeto auth
           //setAuth({ ...auth, ...data.user_updated })
-          setAuth(data.user_updated);
       }
       if(data.message == "No puedes actualizar con los campos vacíos."){
         setTimeout(() => {
