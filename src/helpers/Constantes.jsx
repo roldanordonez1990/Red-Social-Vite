@@ -10,6 +10,7 @@ export const Constantes = {
         loginMissingUser: "No se ha encontrado al usuario deseado.",
         loginKo: "No te has identificado correctamente.",
         registerOk: "Usuario guardado correctamente.",
-        registerRepeat: "Ya existe un usuario con estos datos."
+        registerRepeat: "Ya existe un usuario con estos datos.",
+        listUsersOk: "Listado de usuarios encontrado"
     }
 }
