@@ -15,8 +15,8 @@ export const Register = () => {
       e.preventDefault();
       try {
         let {data} = await PeticionesAyax(Constantes.url_api+"user/addUser", "POST", user)
-        if(data.message == "Usuario guardado correctamente.") setFlag(true) 
-        if(data.message == "Ya existe un usuario con estos datos.") {
+        if(data.message == Constantes.messages.registerOk) setFlag(true) 
+        if(data.message == Constantes.messages.registerRepeat) {
           setFlag2(true) 
           setFlag(false)
         }

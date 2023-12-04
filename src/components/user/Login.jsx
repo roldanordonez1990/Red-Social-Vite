@@ -12,9 +12,9 @@ export const Login = () => {
   const login = async(e) =>{
     e.preventDefault();
     const {data} = await PeticionesAyax(Constantes.url_api+"user/login", "POST", user);
-    if(data.message == "No te has identificado correctamente.") setFlag2(true)&setFlag3(false)&setFlag4(false);
-    if(data.message == "No se ha encontrado al usuario deseado.") setFlag3(true)&setFlag2(false)&setFlag4(false);
-    if(data.message == "Te has identificado correctamente.") {
+    if(data.message == Constantes.messages.loginKo) setFlag2(true)&setFlag3(false)&setFlag4(false);
+    if(data.message == Constantes.messages.loginMissingUser) setFlag3(true)&setFlag2(false)&setFlag4(false);
+    if(data.message == Constantes.messages.loginOk) {
       setFlag4(true)&setFlag2(false)&setFlag3(false);
       //Persistimos el token jwt y el usuario en el LocalStorage para guardar la sesión...El hacendado del Interceptor xD
       localStorage.setItem("token", data.token);
