@@ -11,6 +11,8 @@ export const Constantes = {
         loginKo: "No te has identificado correctamente.",
         registerOk: "Usuario guardado correctamente.",
         registerRepeat: "Ya existe un usuario con estos datos.",
-        listUsersOk: "Listado de usuarios encontrado"
+        listUsersOk: "Listado de usuarios encontrado",
+        followOk: "Has seguido correctamente a este usuario:",
+        unFollowOk: "Has dejado de seguir a este usuario."
     }
 }

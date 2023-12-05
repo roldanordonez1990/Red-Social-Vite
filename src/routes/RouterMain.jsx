@@ -28,7 +28,7 @@ export const RouterMain = () => {
           <Route path="/private" element={<PrivateLayout/>}>
             <Route index element={<Feed/>}/>
             <Route path="feed" index element={<Feed/>}/>
-            <Route path="people" element={<People/>}/>
+            <Route path="people/:pageParams?" element={<People/>}/>
             <Route path="logout" element={<Logout/>}/>
             <Route path="config" element={<Config/>}/>
             <Route path="*" element={<Error/>}/>
