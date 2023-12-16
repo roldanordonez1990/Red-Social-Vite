@@ -9,9 +9,9 @@ import { AuthProvider } from "../context/AuthProvider";
 import { Logout } from "../components/user/Logout";
 import { People } from "../components/user/People";
 import { Config } from "../components/user/Config";
+import { Following } from "../components/follow/Following";
 //import { HeaderPubl } from "../components/layout/public/HeaderPubl";
 //import { HeaderPriv } from "../components/layout/private/HeaderPriv";
-
 
 export const RouterMain = () => {
   return (
@@ -31,6 +31,7 @@ export const RouterMain = () => {
             <Route path="people/:pageParams?" element={<People/>}/>
             <Route path="logout" element={<Logout/>}/>
             <Route path="config" element={<Config/>}/>
+            <Route path="following/:userId?/:pageParams?" element={<Following/>}/>
             <Route path="*" element={<Error/>}/>
           </Route>
 

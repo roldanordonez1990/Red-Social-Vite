@@ -13,6 +13,8 @@ export const Constantes = {
         registerRepeat: "Ya existe un usuario con estos datos.",
         listUsersOk: "Listado de usuarios encontrado",
         followOk: "Has seguido correctamente a este usuario:",
-        unFollowOk: "Has dejado de seguir a este usuario."
+        unFollowOk: "Has dejado de seguir a este usuario.",
+        listadoFollowingOk: "Listado de los usuarios que sigues.",
+        listadofollowingKo: "No sigues a ningún usuario."
     }
 }

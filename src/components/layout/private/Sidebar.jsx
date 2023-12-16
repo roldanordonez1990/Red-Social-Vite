@@ -2,6 +2,7 @@ import avatar from "../../../../src/assets/img/user.png";
 import AuthContext from "../../../context/AuthProvider";
 import { useContext } from "react";
 import { Constantes } from "../../../helpers/Constantes";
+import { Link } from "react-router-dom";
 
 export const Sidebar = () => {
   //useContext donde viene toda la info del usuario
@@ -42,10 +43,10 @@ export const Sidebar = () => {
 
             <div className="profile-info__stats">
               <div className="stats__following">
-                <a href="#" className="following__link">
+                <Link to={"following/"+auth._id} className="following__link">
                   <span className="following__title">Siguiendo</span>
                   <span className="following__number">{counter.following}</span>
-                </a>
+                </Link>
               </div>
               <div className="stats__following">
                 <a href="#" className="following__link">

@@ -20,6 +20,7 @@ export const ListadoPeople = ({ users, following, setFollowing, token }) => {
         //Seteamos el nuevo estado de following agregando el nuevo user que seguimos
         //De esta forma el botón cambiará automáticamente
         setFollowing([...following, data.followed_user])
+        
       }
     } catch (error) {
       console.log("Error en la petición follow")
@@ -41,7 +42,7 @@ export const ListadoPeople = ({ users, following, setFollowing, token }) => {
 
         if(data && data.message == Constantes.messages.unFollowOk){
           //Una vez eliminado, seteamos el array de following filtrando menos el que acabamos de eliminar
-          let following_new = following.filter(followId => _id !== followId);
+          let following_new = following.filter(followId => followId !== _id);
           setFollowing(following_new);
         }
         
