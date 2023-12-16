@@ -15,6 +15,9 @@ export const Constantes = {
         followOk: "Has seguido correctamente a este usuario:",
         unFollowOk: "Has dejado de seguir a este usuario.",
         listadoFollowingOk: "Listado de los usuarios que sigues.",
-        listadofollowingKo: "No sigues a ningún usuario."
+        listadofollowingKo: "No sigues a ningún usuario.",
+        listadoFollowersOk: "Listado de los usuarios que me siguen.",
+        publicationOk: "Has añadido una nueva publicación con éxito.",
+        publicationKo: "Error al guardar la publicación."
     }
 }

@@ -3,10 +3,43 @@ import AuthContext from "../../../context/AuthProvider";
 import { useContext } from "react";
 import { Constantes } from "../../../helpers/Constantes";
 import { Link } from "react-router-dom";
+import { Serialize } from "../../../helpers/Serialize";
 
 export const Sidebar = () => {
   //useContext donde viene toda la info del usuario
   const { auth, counter } = useContext(AuthContext);
+  const token = localStorage.getItem("token");
+
+  const savePublication = async(e) =>{
+    e.preventDefault();
+    //alert(e.target.text.value)
+    let publication = Serialize(e.target);
+    
+    try {
+      const request = await fetch(Constantes.url_api+"publication/addPublication", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: JSON.stringify(token),
+        },
+        body: JSON.stringify(publication)
+      })
+  
+      const data = await request.json();
+      if(data && data.message == Constantes.messages.publicationOk){
+        document.getElementById("formulario").reset();
+        alert("Publicación con éxito")
+        console.log("OK");
+        console.log(data.new_publication);
+      }
+
+      if(data && data.message == Constantes.messages.publicationKo) alert("Error en la publicación")
+
+    } catch (error) {
+      console.log("Error en la petición de publicación.")
+    }
+    
+  }
 
   return (
     <>
@@ -49,10 +82,10 @@ export const Sidebar = () => {
                 </Link>
               </div>
               <div className="stats__following">
-                <a href="#" className="following__link">
+                <Link to={"followers/"+auth._id} className="following__link">
                   <span className="following__title">Seguidores</span>
                   <span className="following__number">{counter.followers}</span>
-                </a>
+                </Link>
               </div>
 
               <div className="stats__following">
@@ -65,17 +98,15 @@ export const Sidebar = () => {
               </div>
             </div>
           </div>
-
+          
           <div className="aside__container-form">
-            <form className="container-form__form-post">
+            <form id="formulario" className="container-form__form-post" onSubmit={savePublication}>
               <div className="form-post__inputs">
                 <label name="post" className="form-post__label">
-                  ¿Que estas pesando hoy?
+                  ¿Qué estás pesando hoy?
                 </label>
-                <textarea
-                  name="post"
-                  className="form-post__textarea"
-                ></textarea>
+                <textarea name="text" className="form-post__textarea"/>
+               
               </div>
 
               <div className="form-post__inputs">
@@ -85,11 +116,7 @@ export const Sidebar = () => {
                 <input type="file" name="image" className="form-post__image" />
               </div>
 
-              <input
-                type="submit"
-                value="Enviar"
-                className="form-post__btn-submit"
-                disabled
+              <input type="submit" value="Enviar" className="form-post__btn-submit"
               />
             </form>
           </div>

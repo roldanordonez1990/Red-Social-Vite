@@ -1,13 +1,15 @@
 import { Constantes } from "../../helpers/Constantes";
 import { useState } from "react";
 import { useEffect } from "react";
-//import AuthContext from "../../context/AuthProvider";
-//import { useContext } from "react";
+import AuthContext from "../../context/AuthProvider";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ListadoPeople } from "../user/ListadoPeople";
 
-export const Following = () => {
-  
+export const Followers = () => {
+
+  //useContext donde viene toda la info del usuario
+  const { auth } = useContext(AuthContext);
   let {pageParams} = useParams();
   let {userId} = useParams();
   const token = localStorage.getItem("token");
@@ -40,7 +42,7 @@ export const Following = () => {
       setPage(parseInt(pageParams))
     }
     try {
-      const request = await fetch(Constantes.url_api + "follow/following/"+userId+"/"+ page, {
+      const request = await fetch(Constantes.url_api + "follow/followers/"+userId+"/"+ page, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -48,20 +50,22 @@ export const Following = () => {
         },
       });
       const data = await request.json();
-      if (data && data.message == Constantes.messages.listadoFollowingOk) {
+      if (data && data.message == Constantes.messages.listadoFollowersOk) {
           setFlag(false)
           //El resultado llega como un array de objetos dentro de la petición. 
           //Hay que sacar el array para poder recorrerlo y sacar el resultado de los objetos
-          let cleanFollowing = [];
-          //Array para tener los id de los following, ya que en esta petición no los recibimos
-          let cleanIdFollowings = [];
-          data.following.forEach(users =>{
-            cleanFollowing.push(users.followed);
-            cleanIdFollowings.push(users.followed._id)
+          let cleanFollowers = [];
+          let cleanIdFollowing = [];
+          data.followers.forEach(followers =>{
+              cleanFollowers.push(followers.user);
           })
+          //Recorremos otro array para sacar los id de los following
+          data.following.forEach(following =>{
+            cleanIdFollowing.push(following.followed);            
+        })
     
-        setUsers(cleanFollowing)
-        setFollowing(cleanIdFollowings)
+        setUsers(cleanFollowers)
+        setFollowing(cleanIdFollowing)
         setTotalPage(data.total_pages)
       }
 
@@ -69,7 +73,6 @@ export const Following = () => {
         setFlag(false);
         setUsers(0)
       }
-
     } catch (error) {
       console.log("Error en la petición following");
     }
@@ -78,7 +81,7 @@ export const Following = () => {
   return (
     <>
       <header className="content__header">
-        <h2 className="content__title">Usuarios que sigues</h2>
+        <h2 className="content__title">Usuarios que siguen a {auth.nombre}</h2>
       </header>
       {flag ? (
         <h3>Cargando...</h3>

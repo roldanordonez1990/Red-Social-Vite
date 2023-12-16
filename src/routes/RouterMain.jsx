@@ -10,6 +10,7 @@ import { Logout } from "../components/user/Logout";
 import { People } from "../components/user/People";
 import { Config } from "../components/user/Config";
 import { Following } from "../components/follow/Following";
+import { Followers } from "../components/follow/Followers";
 //import { HeaderPubl } from "../components/layout/public/HeaderPubl";
 //import { HeaderPriv } from "../components/layout/private/HeaderPriv";
 
@@ -32,6 +33,7 @@ export const RouterMain = () => {
             <Route path="logout" element={<Logout/>}/>
             <Route path="config" element={<Config/>}/>
             <Route path="following/:userId?/:pageParams?" element={<Following/>}/>
+            <Route path="followers/:userId?/:pageParams?" element={<Followers/>}/>
             <Route path="*" element={<Error/>}/>
           </Route>
 
