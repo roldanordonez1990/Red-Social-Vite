@@ -64,24 +64,22 @@ export const Profile = () => {
 
             <div className="profile-info__stats">
               <div className="stats__following">
-                <Link className="following__link">
+                <Link to={"/private/following/"+userDataProfile._id} className="following__link">
                   <span className="following__title">Siguiendo</span>
                   <span className="following__number">{counters.following}</span>
                 </Link>
               </div>
               <div className="stats__following">
-                <Link className="following__link">
+                <Link to={"/private/followers/"+userDataProfile._id} className="following__link">
                   <span className="following__title">Seguidores</span>
                   <span className="following__number">{counters.followers}</span>
                 </Link>
               </div>
 
               <div className="stats__following">
-                <Link className="following__link">
+                <Link to={"/private/profile/"+userDataProfile._id} className="following__link">
                   <span className="following__title">Publicaciones</span>
-                  <span className="following__number">
-                    0
-                  </span>
+                  <span className="following__number">{counters.publication}</span>
                 </Link>
               </div>
             </div>
