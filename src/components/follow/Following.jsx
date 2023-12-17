@@ -5,6 +5,7 @@ import { useEffect } from "react";
 //import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ListadoPeople } from "../user/ListadoPeople";
+import { GetDataProfile } from "../../helpers/GetDataProfile";
 
 export const Following = () => {
   
@@ -16,9 +17,11 @@ export const Following = () => {
   const[page, setPage] = useState(1);
   const[totalPage, setTotalPage] = useState();
   const [flag, setFlag] = useState(true);
+  const [userDataProfile, setUserDataProfile] = useState({})
 
   useEffect(() => {
     getListUsers();
+    GetDataProfile(userId, setUserDataProfile, token);
   }, [page, pageParams]);
 
   const nextPage = () =>{
@@ -78,7 +81,7 @@ export const Following = () => {
   return (
     <>
       <header className="content__header">
-        <h2 className="content__title">Usuarios que sigues</h2>
+        <h2 className="content__title">Usuarios que sigue: {userDataProfile.nombre}</h2>
       </header>
       {flag ? (
         <h3>Cargando...</h3>

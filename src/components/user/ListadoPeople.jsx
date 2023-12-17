@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import avatar from "../../../src/assets/img/user.png";
 import { Constantes } from "../../helpers/Constantes";
 
@@ -59,7 +60,7 @@ export const ListadoPeople = ({ users, following, setFollowing, token }) => {
           <div className="posts__post">
             <div className="post__container">
               <div className="post__image-user">
-                <a href="#" className="post__image-link">
+                <Link to={"/private/profile/"+user._id} className="post__image-link">
                   {user.imagen != "default.png" ? (
                     <img
                       src={Constantes.url_api + "user/getAvatar/" + user.imagen}
@@ -73,14 +74,14 @@ export const ListadoPeople = ({ users, following, setFollowing, token }) => {
                       alt="Foto de perfil"
                     />
                   )}
-                </a>
+                </Link>
               </div>
 
               <div className="post__body">
                 <div className="post__user-info">
-                  <a href="#" className="user-info__name">
+                  <Link to={"/private/profile/"+user._id} className="user-info__name">
                     {user.nombre}
-                  </a>
+                  </Link>
                   <span className="user-info__divider"> | </span>
                   <a href="#" className="user-info__create-date">
                     {user.created_at}

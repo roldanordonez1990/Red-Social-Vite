@@ -1,5 +1,4 @@
 import { Constantes } from "../../helpers/Constantes";
-//import { useState } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { ListadoPeople } from "./ListadoPeople";

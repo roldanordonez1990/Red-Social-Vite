@@ -17,7 +17,10 @@ export const Constantes = {
         listadoFollowingOk: "Listado de los usuarios que sigues.",
         listadofollowingKo: "No sigues a ningún usuario.",
         listadoFollowersOk: "Listado de los usuarios que me siguen.",
+        listadoFollowersKo: "No te sigue ningún usuario.",
         publicationOk: "Has añadido una nueva publicación con éxito.",
-        publicationKo: "Error al guardar la publicación."
+        publicationKo: "Error al guardar la publicación.",
+        uploadFilePublicationOk: "Has subido la imagen correctamente.",
+        contadorOk: "Contador calculado correctamente."
     }
 }

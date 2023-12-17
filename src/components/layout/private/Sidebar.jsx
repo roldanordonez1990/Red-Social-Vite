@@ -14,7 +14,7 @@ export const Sidebar = () => {
     e.preventDefault();
     //alert(e.target.text.value)
     let publication = Serialize(e.target);
-    
+
     try {
       const request = await fetch(Constantes.url_api+"publication/addPublication", {
         method: "POST",
@@ -26,19 +26,44 @@ export const Sidebar = () => {
       })
   
       const data = await request.json();
+    
+      if(data && data.message == Constantes.messages.publicationKo) alert("Error en la publicación")
+
       if(data && data.message == Constantes.messages.publicationOk){
-        document.getElementById("formulario").reset();
+        //document.getElementById("formulario").reset();
         alert("Publicación con éxito")
-        console.log("OK");
-        console.log(data.new_publication);
+        console.log("ID PUBLICATION:"+data.new_publication._id)
       }
 
-      if(data && data.message == Constantes.messages.publicationKo) alert("Error en la publicación")
+      //Subida de imagen en la publicación
+      const fileInput = document.querySelector("#file");
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+  
+      if(fileInput.files[0]){
+        const requestFile = await fetch(Constantes.url_api+"publication/uploadPublicationImg/"+data.new_publication._id, {
+          method: "POST",
+          headers: {
+            Authorization: JSON.stringify(token)
+          },
+          body: formData
+        })
+
+        const dataFile = await requestFile.json();
+
+        if(dataFile && dataFile.message == Constantes.messages.uploadFilePublicationOk){
+          alert("Publicación más imagen con éxito")
+        }
+
+      }else{
+        console.log("Has preferido no subir imagen.")
+      }
+      //reseteamos el formulario
+      document.getElementById("formulario").reset();
 
     } catch (error) {
       console.log("Error en la petición de publicación.")
-    }
-    
+    }  
   }
 
   return (
@@ -67,10 +92,12 @@ export const Sidebar = () => {
                 )}
               </div>
               <div className="general-info__container-names">
-                <a href="#" className="container-names__name">
-                  {auth.nombre}
-                </a>
-                <p className="container-names__nickname">{auth.nick}</p>
+                <Link to={"profile/"+auth._id}>
+                  <p className="container-names__name">{auth.nombre}</p>
+                </Link>
+                <Link to={"profile/"+auth._id}>
+                  <p className="container-names__nickname">{auth.nick}</p>
+                </Link>
               </div>
             </div>
 
@@ -89,12 +116,12 @@ export const Sidebar = () => {
               </div>
 
               <div className="stats__following">
-                <a href="#" className="following__link">
+                <Link to={"profile/"+auth._id} className="following__link">
                   <span className="following__title">Publicaciones</span>
                   <span className="following__number">
                     {counter.publication}
                   </span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -102,22 +129,15 @@ export const Sidebar = () => {
           <div className="aside__container-form">
             <form id="formulario" className="container-form__form-post" onSubmit={savePublication}>
               <div className="form-post__inputs">
-                <label name="post" className="form-post__label">
-                  ¿Qué estás pesando hoy?
-                </label>
-                <textarea name="text" className="form-post__textarea"/>
-               
+                  <label htmlFor="text">¿Qué están pensando hoy?</label>
+                  <textarea name="text" />
               </div>
 
               <div className="form-post__inputs">
-                <label name="image" className="form-post__label">
-                  Sube tu foto
-                </label>
-                <input type="file" name="image" className="form-post__image" />
+              <label htmlFor="file">Avatar</label>
+                <input id="file" type="file" name="" />
               </div>
-
-              <input type="submit" value="Enviar" className="form-post__btn-submit"
-              />
+              <input type="submit" value="Enviar" className="form-post__btn-submit"/>
             </form>
           </div>
         </div>

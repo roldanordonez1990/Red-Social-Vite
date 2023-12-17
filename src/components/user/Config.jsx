@@ -86,10 +86,10 @@ export const Config = () => {
         if(fileInput.files[0]){
           const requestImg = await fetch(Constantes.url_api + "user/uploadAvatar",{
             method: "POST",
+            body: formData,
             headers: {
               Authorization: JSON.stringify(token),
-            },
-            body: formData
+            }
           }
         );
 

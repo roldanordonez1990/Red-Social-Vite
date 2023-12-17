@@ -11,6 +11,7 @@ import { People } from "../components/user/People";
 import { Config } from "../components/user/Config";
 import { Following } from "../components/follow/Following";
 import { Followers } from "../components/follow/Followers";
+import { Profile } from "../components/user/Profile";
 //import { HeaderPubl } from "../components/layout/public/HeaderPubl";
 //import { HeaderPriv } from "../components/layout/private/HeaderPriv";
 
@@ -34,6 +35,7 @@ export const RouterMain = () => {
             <Route path="config" element={<Config/>}/>
             <Route path="following/:userId?/:pageParams?" element={<Following/>}/>
             <Route path="followers/:userId?/:pageParams?" element={<Followers/>}/>
+            <Route path="profile/:userId" element={<Profile/>}/>
             <Route path="*" element={<Error/>}/>
           </Route>
 

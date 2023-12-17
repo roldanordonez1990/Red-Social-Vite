@@ -49,7 +49,7 @@ export const HeaderPriv = () => {
 
           <ul className="container-lists__list-end">
             <li className="list-end__item">
-              <a href="#" className="list-end__link-image">
+              <NavLink to={"profile/"+auth._id} className="list-end__link-image">
                 {auth.imagen != "default.png" ? (
                   <img
                     src={Constantes.url_api + "user/getAvatar/" + auth.imagen}
@@ -63,12 +63,12 @@ export const HeaderPriv = () => {
                     alt="Foto de perfil"
                   />
                 )}
-              </a>
+              </NavLink>
             </li>
             <li className="list-end__item">
-              <a href="#" className="list-end__link">
+              <NavLink to={"profile/"+auth._id} className="list-end__link">
                 <span className="list-end__name">{auth.nick}</span>
-              </a>
+              </NavLink>
             </li>
 
             <li className="list-end__item">

@@ -1,15 +1,12 @@
 import { Constantes } from "../../helpers/Constantes";
 import { useState } from "react";
 import { useEffect } from "react";
-import AuthContext from "../../context/AuthProvider";
-import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ListadoPeople } from "../user/ListadoPeople";
+import { GetDataProfile } from "../../helpers/GetDataProfile";
 
 export const Followers = () => {
 
-  //useContext donde viene toda la info del usuario
-  const { auth } = useContext(AuthContext);
   let {pageParams} = useParams();
   let {userId} = useParams();
   const token = localStorage.getItem("token");
@@ -18,9 +15,11 @@ export const Followers = () => {
   const[page, setPage] = useState(1);
   const[totalPage, setTotalPage] = useState();
   const [flag, setFlag] = useState(true);
+  const [userDataProfile, setUserDataProfile] = useState({})
 
   useEffect(() => {
     getListUsers();
+    GetDataProfile(userId, setUserDataProfile, token);
   }, [page, pageParams]);
 
   const nextPage = () =>{
@@ -69,7 +68,7 @@ export const Followers = () => {
         setTotalPage(data.total_pages)
       }
 
-      if(data && data.message == Constantes.messages.listadofollowingKo) { 
+      if(data && data.message == Constantes.messages.listadoFollowersKo) { 
         setFlag(false);
         setUsers(0)
       }
@@ -81,7 +80,7 @@ export const Followers = () => {
   return (
     <>
       <header className="content__header">
-        <h2 className="content__title">Usuarios que siguen a {auth.nombre}</h2>
+        <h2 className="content__title">Usuarios que siguen a: {userDataProfile.nombre}</h2>
       </header>
       {flag ? (
         <h3>Cargando...</h3>
