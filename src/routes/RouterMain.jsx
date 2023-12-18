@@ -35,7 +35,7 @@ export const RouterMain = () => {
             <Route path="config" element={<Config/>}/>
             <Route path="following/:userId/:pageParams?" element={<Following/>}/>
             <Route path="followers/:userId/:pageParams?" element={<Followers/>}/>
-            <Route path="profile/:userId" element={<Profile/>}/>
+            <Route path="profile/:userId/:pageParams?" element={<Profile/>}/>
             <Route path="*" element={<Error/>}/>
           </Route>
 

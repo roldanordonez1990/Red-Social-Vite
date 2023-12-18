@@ -1,8 +1,8 @@
 import { Constantes } from "../../helpers/Constantes";
 import { useState } from "react";
 import { useEffect } from "react";
-//import AuthContext from "../../context/AuthProvider";
-//import { useContext } from "react";
+import AuthContext from "../../context/AuthProvider";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ListadoPeople } from "../user/ListadoPeople";
 import { GetDataProfile } from "../../helpers/GetDataProfile";
@@ -13,16 +13,21 @@ export const Following = () => {
   let {userId} = useParams();
   const token = localStorage.getItem("token");
   const [users, setUsers] = useState([{}]);
+  const { auth } = useContext(AuthContext);
   const [following, setFollowing] = useState([]);
   const[page, setPage] = useState(1);
   const[totalPage, setTotalPage] = useState();
   const [flag, setFlag] = useState(true);
   const [userDataProfile, setUserDataProfile] = useState({})
+  const [warning, setWarning] = useState(false);
 
   useEffect(() => {
-    getListUsers();
     GetDataProfile(userId, setUserDataProfile, token);
-  }, [page, pageParams]);
+    if(userId === auth._id) {
+      GetDataProfile(auth._id, setUserDataProfile, token);
+    }
+    getListUsers();
+  }, [page, pageParams, userId]);
 
   const nextPage = () =>{
     let next = page +1
@@ -51,6 +56,11 @@ export const Following = () => {
         },
       });
       const data = await request.json();
+
+      if(data && data.message == Constantes.messages.idFollowingKo){
+        setWarning(true);
+      }
+
       if (data && data.message == Constantes.messages.listadoFollowingOk) {
           setFlag(false)
           //El resultado llega como un array de objetos dentro de la petición. 
@@ -80,9 +90,13 @@ export const Following = () => {
 
   return (
     <>
-      <header className="content__header">
-        <h2 className="content__title">Usuarios que sigue: {userDataProfile.nombre}</h2>
-      </header>
+    {warning ? <h3>Este usuario que intentas buscar no existe.</h3> :
+      (
+        <header className="content__header">
+          <h2 className="content__title">Usuarios que sigue: {userDataProfile.nombre}</h2>
+        </header>
+      )}
+      
       {flag ? (
         <h3>Cargando...</h3>
       ) : users.length >= 1 ? (
@@ -94,14 +108,14 @@ export const Following = () => {
       )}
         {/*Botones Next y Previous*/}
         <div className="content__container-btn">
-        {page == 1 || pageParams == 1 ? "" : (
+        {page == 1 || pageParams == 1 || totalPage <= 1 ? "" : (
           <Link to={"/private/following/"+userId+"/"+(page-1)}>
           <button className="content__btn-more-post-prev" onClick={previousPage}>
               Previous page
           </button>
           </Link>
         )}
-        {page == totalPage || pageParams == totalPage ? "" : (
+        {page == totalPage || pageParams == totalPage || totalPage <= 1 ? "" : (
           <Link to={"/private/following/"+userId+"/"+(page+1)}>
           <button className="content__btn-more-post" onClick={nextPage}>
             Next page

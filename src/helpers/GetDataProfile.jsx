@@ -10,6 +10,10 @@ export const GetDataProfile = async(userId, setUserDataProfile, token) => {
   })
 
   const data = await request.json()
-  setUserDataProfile(data.user_finded);
-
+    if(data.message == Constantes.messages.idProfileKo){
+      return false
+    }else{
+      setUserDataProfile(data.user_finded);
+      return data;
+    }
 }

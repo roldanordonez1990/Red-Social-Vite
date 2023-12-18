@@ -21,6 +21,8 @@ export const Constantes = {
         publicationOk: "Has añadido una nueva publicación con éxito.",
         publicationKo: "Error al guardar la publicación.",
         uploadFilePublicationOk: "Has subido la imagen correctamente.",
-        contadorOk: "Contador calculado correctamente."
+        contadorOk: "Contador calculado correctamente.",
+        idProfileKo: "No existe un usuario con este ID",
+        idFollowingKo: "El ID no es correcto o no existe."
     }
 }

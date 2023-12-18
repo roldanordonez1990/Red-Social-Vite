@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Constantes } from "../../helpers/Constantes";
-//import { GetDataProfile } from "../../helpers/GetDataProfile";
 import avatar from "../../../src/assets/img/user.png";
 import { GetDataProfile } from "../../helpers/GetDataProfile";
 import { GetCounters } from "../../helpers/GetCounters";
@@ -15,31 +14,45 @@ export const Profile = () => {
   const [counters, setCounters] = useState({});
   const { auth } = useContext(AuthContext);
   const token = localStorage.getItem("token");
+  const [iFollow, setIfollow] = useState(false);
 
   useEffect(() => {
     //Métodos externos para extraer los datos del ususario y los seguidores desde una petición, y no desde el auth registrado
-    GetDataProfile(userId, setUserDataProfile, token);
-    GetCounters(userId, setCounters, token)
+    getDataUser();
+    GetCounters(userId, setCounters, token);
     //Esto sólo es por si cambiamos de un perfil al nuestro, para que se actualice en la página
     //Ya que el useEfect se ejecutará cuando cambie el id
-    if(userId === auth._id){
-    GetDataProfile(auth._id, setUserDataProfile, token);
-    GetCounters(auth._id, setCounters, token)
+    if (userId === auth._id) {
+      GetDataProfile(auth._id, setUserDataProfile, token);
+      GetCounters(auth._id, setCounters, token);
     }
-  },userId);
+  }, [userId]);
+
+  const getDataUser = async() =>{
+    let data = await GetDataProfile(userId, setUserDataProfile, token);
+    //Comprobamos si seguimos a este user desde la petición
+    if(data.following.followed) setIfollow(true);
+  }
 
   return (
     <>
-        <header>
-            <h2>Perfil de usuario</h2>
-        </header>
+      <header>
+        <h2>Perfil de usuario</h2>
+      </header>
+      {!userDataProfile._id || userDataProfile._id == undefined ? (
+        <h3>Este usuario que intentas buscar no existe.</h3>
+      ) : (
         <div className="aside__container">
           <div className="aside__profile-info">
             <div className="profile-info__general-info">
               <div className="general-info__container-avatar">
-              {userDataProfile.imagen != "default.png" ? (
+                {userDataProfile.imagen != "default.png" ? (
                   <img
-                    src={Constantes.url_api + "user/getAvatar/" + userDataProfile.imagen}
+                    src={
+                      Constantes.url_api +
+                      "user/getAvatar/" +
+                      userDataProfile.imagen
+                    }
                     className="container-avatar__img"
                     alt="Foto de perfil"
                   />
@@ -50,41 +63,73 @@ export const Profile = () => {
                     alt="Foto de perfil"
                   />
                 )}
-                
               </div>
               <div className="general-info__container-names">
                 <Link>
-                  <p className="container-names__name">{userDataProfile.nombre}</p>
+                  <p className="container-names__name">
+                    {userDataProfile.nombre}
+                  </p>
                 </Link>
                 <Link>
-                  <p className="container-names__nickname">{userDataProfile.nick}</p>
+                  <p className="container-names__nickname">
+                    {userDataProfile.nick}
+                  </p>
                 </Link>
               </div>
             </div>
 
             <div className="profile-info__stats">
               <div className="stats__following">
-                <Link to={"/private/following/"+userDataProfile._id} className="following__link">
+                <Link
+                  to={"/private/following/" + userDataProfile._id}
+                  className="following__link"
+                >
                   <span className="following__title">Siguiendo</span>
-                  <span className="following__number">{counters.following}</span>
+                  <span className="following__number">
+                    {counters.following}
+                  </span>
                 </Link>
               </div>
               <div className="stats__following">
-                <Link to={"/private/followers/"+userDataProfile._id} className="following__link">
+                <Link
+                  to={"/private/followers/" + userDataProfile._id}
+                  className="following__link"
+                >
                   <span className="following__title">Seguidores</span>
-                  <span className="following__number">{counters.followers}</span>
+                  <span className="following__number">
+                    {counters.followers}
+                  </span>
                 </Link>
               </div>
 
               <div className="stats__following">
-                <Link to={"/private/profile/"+userDataProfile._id} className="following__link">
+                <Link
+                  to={"/private/profile/" + userDataProfile._id}
+                  className="following__link"
+                >
                   <span className="following__title">Publicaciones</span>
-                  <span className="following__number">{counters.publication}</span>
+                  <span className="following__number">
+                    {counters.publication}
+                  </span>
                 </Link>
+              </div>
+              
+              <div className="stats__following-btn">
+                {!iFollow ? (
+                  <button className="post__button-follow">
+                    Seguir
+                  </button>
+                ): (
+                  <button className="post__button">
+                    Dejar de seguir
+                  </button>
+                )}
+                
               </div>
             </div>
           </div>
         </div>
+      )}
     </>
   );
 };
