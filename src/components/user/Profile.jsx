@@ -113,8 +113,8 @@ export const Profile = () => {
                   </span>
                 </Link>
               </div>
-              
-              <div className="stats__following-btn">
+              {userDataProfile._id == auth._id ? "" : (
+                <div className="stats__following-btn">
                 {!iFollow ? (
                   <button className="post__button-follow">
                     Seguir
@@ -124,8 +124,8 @@ export const Profile = () => {
                     Dejar de seguir
                   </button>
                 )}
-                
-              </div>
+                </div>
+              )} 
             </div>
           </div>
         </div>
