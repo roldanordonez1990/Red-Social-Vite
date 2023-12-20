@@ -100,7 +100,7 @@ export const Following = () => {
       {flag ? (
         <h3>Cargando...</h3>
       ) : users.length >= 1 ? (
-        <ListadoPeople users={users} setUsers={setUsers} following={following} setFollowing={setFollowing} token={token}/>
+        <ListadoPeople userId={userId} users={users} setUsers={setUsers} following={following} setFollowing={setFollowing} token={token}/>
       ) : (
         <>
           <h3>No hay usuarios que mostrar</h3>

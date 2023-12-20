@@ -12,6 +12,7 @@ export const Constantes = {
         registerOk: "Usuario guardado correctamente.",
         registerRepeat: "Ya existe un usuario con estos datos.",
         listUsersOk: "Listado de usuarios encontrado",
+        listUsersKo: "No se han encontrado usuarios",
         followOk: "Has seguido correctamente a este usuario:",
         unFollowOk: "Has dejado de seguir a este usuario.",
         listadoFollowingOk: "Listado de los usuarios que sigues.",
@@ -23,6 +24,8 @@ export const Constantes = {
         uploadFilePublicationOk: "Has subido la imagen correctamente.",
         contadorOk: "Contador calculado correctamente.",
         idProfileKo: "No existe un usuario con este ID",
-        idFollowingKo: "El ID no es correcto o no existe."
+        idFollowingKo: "El ID no es correcto o no existe.",
+        publicationProfileOk: "Listando publicaciones con éxito.",
+        publicationProfileNoList: "No hay publicaciones que listar."
     }
 }

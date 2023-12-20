@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import avatar from "../../../src/assets/img/user.png";
 import { Constantes } from "../../helpers/Constantes";
+import AuthContext from "../../context/AuthProvider";
+import { useContext } from "react";
 
-export const ListadoPeople = ({ users, following, setFollowing, token }) => {
+export const ListadoPeople = ({ userId, users, following, setFollowing, token }) => {
+
+  const { auth } = useContext(AuthContext);
 
   //Seguir a un usuario
   const follow = async(_id) =>{
@@ -94,8 +98,8 @@ export const ListadoPeople = ({ users, following, setFollowing, token }) => {
                 )}
               </div>
             </div>
-
-            <div className="post__buttons">
+            {(user._id == auth._id) || (userId != auth._id) ? "" : (
+              <div className="post__buttons">
               {/*Si en el array de following no se incluyen los id del listado, es que NO los seguimos */}
               {!following.includes(user._id) ? (
                 <button className="post__button-follow" onClick={() =>follow(user._id)}>
@@ -108,9 +112,9 @@ export const ListadoPeople = ({ users, following, setFollowing, token }) => {
                 <button className="post__button" onClick={() => unFollow(user._id)}>
                 Dejar de seguir
                </button>
-              ): ""}
-                 
+              ): ""}     
             </div>
+            )}
           </div>
         </article>
       </>

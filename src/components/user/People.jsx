@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { ListadoPeople } from "./ListadoPeople";
 import AuthContext from "../../context/AuthProvider";
 import { useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 export const People = () => {
   
@@ -16,6 +16,7 @@ export const People = () => {
   const[page, setPage] = useState(1);
   const[totalPage, setTotalPage] = useState();
   const [flag, setFlag] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getListUsers();
@@ -36,9 +37,15 @@ export const People = () => {
   }
 
   const getListUsers = async () => {
+    
     if(pageParams !== undefined){
-      setPage(parseInt(pageParams))
+      if(isNaN(pageParams)){
+        navigate("/private/people/1");
+      }else{
+        setPage(parseInt(pageParams))
+      }
     }
+   
     try {
       const request = await fetch(Constantes.url_api + "user/listUser/"+ page, {
         method: "GET",
@@ -48,6 +55,9 @@ export const People = () => {
         },
       });
       const data = await request.json();
+      if(data && data.message == Constantes.messages.listUsersKo){
+        navigate("/private/people/1");
+      }
       if (data && data.message == Constantes.messages.listUsersOk) {
         setFlag(false);
         setTotalPage(data.total_pages);
@@ -71,7 +81,7 @@ export const People = () => {
       {flag ? (
         <h3>Cargando...</h3>
       ) : users.length >= 1 ? (
-        <ListadoPeople users={users} following={following} setFollowing={setFollowing} token={token}/>
+        <ListadoPeople userId={auth._id} users={users} following={following} setFollowing={setFollowing} token={token}/>
       ) : (
         <>
           <header className="content__header">
