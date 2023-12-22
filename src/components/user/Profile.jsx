@@ -21,6 +21,7 @@ export const Profile = () => {
   const[totalPage, setTotalPage] = useState();
   const [publication, setPublication] = useState([]);
   const [warning, setWarning] = useState(false);
+  const [flagDeletePubli, setFlagDeletePubli] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -219,8 +220,8 @@ export const Profile = () => {
           </div>
         </div>
       )}
-      {warning ? <h3>No hay publicaciones que mostrar.</h3> : (
-        <PublicationProfile publication={publication}/>
+      {warning || flagDeletePubli ? <h3>No hay publicaciones que mostrar.</h3> : (
+        <PublicationProfile publication={publication} token={token} setPublication={setPublication} setFlagDeletePubli={setFlagDeletePubli} auth={auth} userId={userId}/>
       )}
 
       {/*Botones Next y Previous*/}

@@ -26,6 +26,7 @@ export const Constantes = {
         idProfileKo: "No existe un usuario con este ID",
         idFollowingKo: "El ID no es correcto o no existe.",
         publicationProfileOk: "Listando publicaciones con éxito.",
-        publicationProfileNoList: "No hay publicaciones que listar."
+        publicationProfileNoList: "No hay publicaciones que listar.",
+        publicationDeleteOk: "Publicación eliminada con éxito."
     }
 }
