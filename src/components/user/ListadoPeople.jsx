@@ -3,6 +3,7 @@ import avatar from "../../../src/assets/img/user.png";
 import { Constantes } from "../../helpers/Constantes";
 import AuthContext from "../../context/AuthProvider";
 import { useContext } from "react";
+import ReactTimeAgo from 'react-time-ago';
 
 export const ListadoPeople = ({ userId, users, following, setFollowing, token }) => {
 
@@ -87,9 +88,9 @@ export const ListadoPeople = ({ userId, users, following, setFollowing, token })
                     {user.nombre}
                   </Link>
                   <span className="user-info__divider"> | </span>
-                  <a href="#" className="user-info__create-date">
-                    {user.created_at}
-                  </a>
+                  <span className="user-info__create-date">
+                    <ReactTimeAgo date={user.created_at} locale="es-ES"/>
+                  </span>
                 </div>
                 {user.bio ? (
                   <h4 className="post__content">{user.bio}</h4>

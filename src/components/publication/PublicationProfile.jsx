@@ -1,5 +1,6 @@
 import { Constantes } from "../../helpers/Constantes";
 import avatar from "../../../src/assets/img/user.png";
+import ReactTimeAgo from 'react-time-ago';
 
 export const PublicationProfile = ({ publication, token, setPublication,  setFlagDeletePubli, auth, userId}) => {
 
@@ -29,13 +30,9 @@ export const PublicationProfile = ({ publication, token, setPublication,  setFla
           <div className="posts__post">
             <div className="post__container">
               <div className="post__image-user">
-                {publi.file ? (
+              {publi.user.imagen != "default.png" ? (
                   <img
-                    src={
-                      Constantes.url_api +
-                      "publication/getImgPublication/" +
-                      publi.file
-                    }
+                    src={Constantes.url_api + "user/getAvatar/" + publi.user.imagen}
                     className="container-avatar__img"
                     alt="Foto de perfil"
                   />
@@ -46,6 +43,7 @@ export const PublicationProfile = ({ publication, token, setPublication,  setFla
                     alt="Foto de perfil"
                   />
                 )}
+               
               </div>
               <div className="post__body">
                 <div className="post__user-info">
@@ -53,13 +51,16 @@ export const PublicationProfile = ({ publication, token, setPublication,  setFla
                     {publi.user.nick}
                   </a>
                   <span className="user-info__divider"> | </span>
-                  <a href="#" className="user-info__create-date">
-                    {publi.created_at}
-                  </a>
+                  <span className="user-info__create-date">
+                    <ReactTimeAgo date={publi.created_at} locale="es-ES"/>
+                  </span>
                 </div>
 
                 <h4 className="post__content">{publi.text}</h4>
               </div>
+              
+              <img className="post__publi-user" src={Constantes.url_api+"publication/getImgPublication/"+publi.file}/>
+              
             </div>
             <div className="post__buttons">
               {auth._id != userId ? "" : (

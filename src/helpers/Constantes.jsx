@@ -27,6 +27,8 @@ export const Constantes = {
         idFollowingKo: "El ID no es correcto o no existe.",
         publicationProfileOk: "Listando publicaciones con éxito.",
         publicationProfileNoList: "No hay publicaciones que listar.",
-        publicationDeleteOk: "Publicación eliminada con éxito."
+        publicationDeleteOk: "Publicación eliminada con éxito.",
+        feedOk: "Mostrando Feed correctamente.",
+        feedNoPublications: "No hay publicaciones que mostrar en el feed."
     }
 }
